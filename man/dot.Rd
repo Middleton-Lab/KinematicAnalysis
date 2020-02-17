@@ -7,10 +7,12 @@
 dot(u, v)
 }
 \arguments{
-\item{v}{}
+\item{u}{Numeric vector}
+
+\item{v}{Numeric vector}
 }
 \value{
-
+Numeric dot product of `u` and `v`.
 }
 \description{
 Dot product

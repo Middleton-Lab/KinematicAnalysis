@@ -4,7 +4,9 @@
 #' @param ii integer index for the row of Trial_Info to analyze
 #' @param cal_coords Corrdinates for calibration object
 #'
-#' @return
+#' @return List containing: `M` data.frame with points in wide format and
+#' `cal_rotate` Rotated calibration points.
+#'
 #' @export
 #'
 process_kine_data <- function(Trial_Info, ii, cal_coords) {

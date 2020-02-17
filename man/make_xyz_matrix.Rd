@@ -7,10 +7,10 @@
 make_xyz_matrix(d)
 }
 \arguments{
-\item{d}{}
+\item{d}{Data.frame with points in wide format}
 }
 \value{
-
+Data.frame with (x, y, z) points as rows 1, 2, and 3
 }
 \description{
 Convert wide data to (x, y, z) rows

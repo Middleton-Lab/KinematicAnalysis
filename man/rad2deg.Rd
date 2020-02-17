@@ -7,10 +7,10 @@
 rad2deg(r)
 }
 \arguments{
-\item{r}{numeric vector of radians}
+\item{r}{Numeric vector of radians}
 }
 \value{
-vector with r converted to degrees
+Vector with r converted to degrees
 }
 \description{
 Radians to degrees

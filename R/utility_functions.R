@@ -1,9 +1,9 @@
 #' Dot product
 #'
-#' @param u
-#' @param v
+#' @param u Numeric vector
+#' @param v Numeric vector
 #'
-#' @return
+#' @return Numeric dot product of `u` and `v`.
 #'
 dot <- function(u, v) {
   return(sum(u * v))
@@ -12,9 +12,9 @@ dot <- function(u, v) {
 
 #' Radians to degrees
 #'
-#' @param r numeric vector of radians
+#' @param r Numeric vector of radians
 #'
-#' @return vector with r converted to degrees
+#' @return Vector with r converted to degrees
 #'
 rad2deg <- function(r) {
   return(r * 180 / pi)
@@ -23,9 +23,9 @@ rad2deg <- function(r) {
 
 #' Convert wide data to (x, y, z) rows
 #'
-#' @param d
+#' @param d Data.frame with points in wide format
 #'
-#' @return
+#' @return Data.frame with (x, y, z) points as rows 1, 2, and 3
 #'
 make_xyz_matrix <- function(d) {
   n_rows <- 3

@@ -14,7 +14,9 @@ process_kine_data(Trial_Info, ii, cal_coords)
 \item{cal_coords}{Corrdinates for calibration object}
 }
 \value{
-
+List containing:
+`M` data.frame with points in wide format
+`cal_rotate` Rotated calibration points.
 }
 \description{
 Process kinematic data
