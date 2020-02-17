@@ -17,6 +17,8 @@ process_kine_data <- function(Trial_Info, ii, cal_coords) {
   f <- paste0("../Mouse3D-josh-2019-07-16-3d/videos/",
               Date, "_", ID, "_T", Tr, "_josh.csv")
 
+  message("Reading file: ", f)
+
   frame_start <- Trial_Info %>% filter(MouseID == ID, Trial == Tr) %>%
     pull(Start_frame)
   frame_end <- Trial_Info %>% filter(MouseID == ID, Trial == Tr) %>%
