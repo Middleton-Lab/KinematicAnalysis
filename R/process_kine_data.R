@@ -14,7 +14,7 @@ process_kine_data <- function(Trial_Info, ii, cal_coords) {
                 Trial_Info$Day[ii], sep = "-")
   ID <- Trial_Info$MouseID[ii]
   Tr <- Trial_Info$Trial[ii]
-  f <- paste0("../Mouse3D-josh-2019-07-16-3d/videos/",
+  f <- paste0("../", Trial_Info$Base_Dir[ii], "/videos/",
               Date, "_", ID, "_T", Tr, "_josh.csv")
 
   message("Reading file: ", f)
