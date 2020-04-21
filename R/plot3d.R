@@ -18,9 +18,15 @@ plot3d <- function(M, cal_rotate) {
     y = as.numeric(cal_rotate[2, ]),
     z = as.numeric(cal_rotate[3, ]))
 
+  floor_pts <- d[c(5:8, 9, 11, 12), ]
+  wall_pts <- d[-c(5:8, 9, 11, 12), ]
+
   plot_ly() %>%
-    add_markers(x = ~x, y = ~y, z = ~z, data = d,
-                name = "back_wall",
+    add_markers(x = ~x, y = ~y, z = ~z, data = floor_pts,
+                name = "Floor",
+                size = 1) %>%
+    add_markers(x = ~x, y = ~y, z = ~z, data = wall_pts,
+                name = "Wall",
                 size = 1) %>%
     add_paths(x = ~eye_x, y = ~eye_y, z = ~eye_z,
               data = M, name = "eye") %>%
