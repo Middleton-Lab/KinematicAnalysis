@@ -11,12 +11,12 @@
 read_xyz <- function(f, frame_start, frame_end, conv = 0.1004758) {
   M <- suppressWarnings(read_csv(file = f, skip = 1,
                                  col_types = "ccccccccccccccccccc")) %>%
-    slice(-1)
+    dplyr::slice(-1)
   names(M) <- c("frame",
                 paste(rep(c("eye", "sacrum", "hip", "knee", "ankle", "foot"),
                           each = 3),
                       c("x", "y", "z"), sep = "_"))
-  M <- M %>% slice((frame_start + 1):(frame_end + 1))
+  M <- M %>% dplyr::slice(frame_start:frame_end)
   M <- apply(M, MARGIN = 2, as.numeric)
 
   # Convert to world units
