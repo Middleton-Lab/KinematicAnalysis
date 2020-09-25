@@ -7,7 +7,7 @@
 #'
 plot3d <- function(M, cal_rotate) {
   axx <- list(range = c(-150, 150))
-  scene <- list(camera = list(eye = list(x = 0, y = 0, z = 0),
+  scene <- list(camera = list(eye = list(x = 1, y = 0, z = 0),
                               up = list(x = 0, y = 1, z = 0),
                               projection = "orthographic",
                               aspectmode = "cube"),
