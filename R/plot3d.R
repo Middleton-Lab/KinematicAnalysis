@@ -7,11 +7,14 @@
 #'
 plot3d <- function(M, cal_rotate) {
   axx <- list(range = c(-150, 150))
+  axy <- list(range = c(-10, 50))
   scene <- list(camera = list(eye = list(x = 1, y = 0, z = 0),
                               up = list(x = 0, y = 1, z = 0),
                               projection = "orthographic",
                               aspectmode = "cube"),
-                xaxis = axx, yaxis = axx, zaxis = axx)
+                xaxis = axx,
+                yaxis = axy,
+                zaxis = axx)
 
   d <- data.frame(
     x = as.numeric(cal_rotate[1, ]),
@@ -24,22 +27,22 @@ plot3d <- function(M, cal_rotate) {
   plot_ly() %>%
     add_markers(x = ~x, y = ~y, z = ~z, data = floor_pts,
                 name = "Floor",
-                size = 1) %>%
+                marker = list(size = 3, color = "red")) %>%
     add_markers(x = ~x, y = ~y, z = ~z, data = wall_pts,
                 name = "Wall",
-                size = 1) %>%
+                marker = list(size = 3, color = "blue")) %>%
     add_paths(x = ~eye_x, y = ~eye_y, z = ~eye_z,
-              data = M, name = "eye") %>%
+              data = M, name = "Eye") %>%
     add_paths(x = ~sacrum_x, y = ~sacrum_y, z = ~sacrum_z,
-              data = M, name = "sacrum") %>%
+              data = M, name = "Tail") %>%
     add_paths(x = ~hip_x, y = ~hip_y, z = ~hip_z,
-              data = M, name = "hip") %>%
+              data = M, name = "Hip") %>%
     add_paths(x = ~knee_x, y = ~knee_y, z = ~knee_z,
-              data = M, name = "knee") %>%
+              data = M, name = "Knee") %>%
     add_paths(x = ~ankle_x, y = ~ankle_y, z = ~ankle_z,
-              data = M, name = "ankle") %>%
+              data = M, name = "Ankle") %>%
     add_paths(x = ~foot_x, y = ~foot_y, z = ~foot_z,
-              data = M, name = "foot") %>%
+              data = M, name = "Foot") %>%
     layout(scene = scene)
 }
 
