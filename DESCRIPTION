@@ -9,5 +9,5 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: tidyverse, plotly, zeallot
-Imports: readxl, dplyr, purrr, readr
+Imports: readxl, dplyr, purrr, readr, stringr
 RoxygenNote: 7.1.1

@@ -17,9 +17,10 @@
 #' @keywords package
 #' @import tidyverse plotly zeallot
 #' @importFrom readxl read_excel
-#' @importFrom dplyr select starts_with pull as_tibble bind_cols
+#' @importFrom dplyr select starts_with pull as_tibble bind_cols if_else
 #' @importFrom purrr map_dfr
 #' @importFrom readr read_csv
+#' @importFrom stringr str_remove
 NULL
 
 # Ignore some global variables
