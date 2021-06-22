@@ -4,18 +4,19 @@
 \alias{process_kine_data}
 \title{Process kinematic data}
 \usage{
-process_kine_data(Trial_Info, ii, cal_coords)
+process_kine_data(Trial_Info, ii, calibration_coords, bef_aft)
 }
 \arguments{
 \item{Trial_Info}{data.frame with information about trials}
 
 \item{ii}{integer index for the row of Trial_Info to analyze}
 
-\item{cal_coords}{Corrdinates for calibration object}
+\item{calibration_coords}{Coordinates for calibration object}
+
+\item{bef_aft}{String for "Before" or "After"}
 }
 \value{
-List containing: `M` data.frame with points in wide format and
-`cal_rotate` Rotated calibration points.
+
 }
 \description{
 Process kinematic data

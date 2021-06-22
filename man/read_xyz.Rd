@@ -4,7 +4,7 @@
 \alias{read_xyz}
 \title{Read in 3d points from DeepLabCut}
 \usage{
-read_xyz(f, frame_start, frame_end, conv = 0.1004758)
+read_xyz(f, frame_start, frame_end, conv)
 }
 \arguments{
 \item{f}{String of file name to read}

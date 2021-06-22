@@ -8,7 +8,7 @@
 #' @return Tibble with time and (x, y, z) coordinates
 #' @export
 #'
-read_xyz <- function(f, frame_start, frame_end, conv = 0.1004758) {
+read_xyz <- function(f, frame_start, frame_end, conv) {
   M <- suppressWarnings(read_csv(file = f, skip = 1,
                                  col_types = "ccccccccccccccccccc")) %>%
     dplyr::slice(-1)
