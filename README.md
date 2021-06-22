@@ -5,5 +5,5 @@
 
 ```r
 library(devtools)
-devtools::install_github("Middleton-Lab/KinematicAnalysis")
+remotes::install_github("Middleton-Lab/KinematicAnalysis")
 ```
