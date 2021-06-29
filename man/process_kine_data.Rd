@@ -15,9 +15,6 @@ process_kine_data(Trial_Info, ii, calibration_coords, bef_aft)
 
 \item{bef_aft}{String for "Before" or "After"}
 }
-\value{
-
-}
 \description{
 Process kinematic data
 }
