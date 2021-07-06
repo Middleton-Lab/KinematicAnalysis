@@ -7,7 +7,7 @@
 #'
 plot3d <- function(M, cal_rotate) {
   axx <- list(range = c(-150, 150))
-  axy <- list(range = c(-10, 50))
+  axy <- list(range = c(-50, 50))
   scene <- list(camera = list(eye = list(x = 1, y = 0, z = 0),
                               up = list(x = 0, y = 1, z = 0),
                               projection = "orthographic",
@@ -16,13 +16,13 @@ plot3d <- function(M, cal_rotate) {
                 yaxis = axy,
                 zaxis = axx)
 
-  d <- data.frame(
-    x = as.numeric(cal_rotate[1, ]),
-    y = as.numeric(cal_rotate[2, ]),
-    z = as.numeric(cal_rotate[3, ]))
+  # d <- data.frame(
+  #   x = as.numeric(cal_rotate[1, ]),
+  #   y = as.numeric(cal_rotate[2, ]),
+  #   z = as.numeric(cal_rotate[3, ]))
 
-  floor_pts <- d[c(5:8, 9, 11, 12), ]
-  wall_pts <- d[-c(5:8, 9, 11, 12), ]
+  floor_pts <- cal_rotate[c(5:8, 9, 11, 12), ]
+  wall_pts <- cal_rotate[-c(5:8, 9, 11, 12), ]
 
   plot_ly() %>%
     add_markers(x = ~x, y = ~y, z = ~z, data = floor_pts,
