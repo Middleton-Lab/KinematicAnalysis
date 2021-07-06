@@ -78,10 +78,37 @@ process_kine_data <- function(Trial_Info, ii, calibration_coords, bef_aft) {
   # Rotate M_xyz around z landmark by landmark
   M_xyz_z <- rotate_landmark_points(M_xyz, rot_mat_z)
 
+  # Rotate about x: "Bottom Line"
+  Bottom_Line <- cal_mat_z["Bottom_Line", ] %>% as.numeric()
+  Bottom_Line_zero <- c(0,
+                        0,
+                        Bottom_Line[3]) %>% as.numeric()
+
+  theta <- vector_angle(Bottom_Line, Bottom_Line_zero)
+  if (Bottom_Line[3] < 0) theta <- -1 * theta
+  rot_mat_x <- xyz_rotation_matrix(theta, axis = "x")
+  cal_mat_zx <- rot_mat_x %*% t(cal_mat_z) %>% t()
+  M_xyz_zx <- rotate_landmark_points(M_xyz_z, rot_mat_x)
+
   # Rotate about y
+  Bottom_Line <- cal_mat_zx["Bottom_Line", ] %>% as.numeric()
+  Bottom_Line_zero <- c(0,
+                        Bottom_Line[2],
+                        Bottom_Line[3]) %>% as.numeric()
+  theta <- vector_angle(Bottom_Line, Bottom_Line_zero)
+  rot_mat_y <- xyz_rotation_matrix(theta, axis = "y")
+  cal_mat_zxy <- rot_mat_y %*% t(cal_mat_zx) %>% t()
+  M_xyz_zxy <- rotate_landmark_points(M_xyz_zx, rot_mat_y)
 
-  # Rotate about x
 
+  # 180 degree rotation around z
+  rot_mat_z <- xyz_rotation_matrix(theta = pi, "z")
+  cal_mat_zxy <- rot_mat_z %*% t(cal_mat_zxy) %>% t()
+  M_xyz_zxy <- rotate_landmark_points(M_xyz_zxy, rot_mat_z)
+
+
+  cal_mat_zxy <- as.data.frame(cal_mat_zxy)
+  names(cal_mat_zxy) <- c("x", "y", "z")
 
   # # 3d rotation
   # c(Rx, Ry, cal_rotate) %<-% rotation_matrices(calibration_coords)
@@ -92,11 +119,11 @@ process_kine_data <- function(Trial_Info, ii, calibration_coords, bef_aft) {
   # names(M) <- names(M_xyz)
 
   # Reattach time and frame
-  M <- M %>%
+  M_xyz_zxy <- M_xyz_zxy %>%
     mutate(time = M_raw$time,
            frame = M_raw$frame)
 
-  return(list(M = M, cal_rotate = cal_rotate))
+  return(list(M = M_xyz_zxy, cal_rotate = cal_mat_zxy))
 }
 
 
