@@ -100,30 +100,32 @@ process_kine_data <- function(Trial_Info, ii, calibration_coords, bef_aft) {
   cal_mat_zxy <- rot_mat_y %*% t(cal_mat_zx) %>% t()
   M_xyz_zxy <- rotate_landmark_points(M_xyz_zx, rot_mat_y)
 
-
   # 180 degree rotation around z
   rot_mat_z <- xyz_rotation_matrix(theta = pi, "z")
   cal_mat_zxy <- rot_mat_z %*% t(cal_mat_zxy) %>% t()
   M_xyz_zxy <- rotate_landmark_points(M_xyz_zxy, rot_mat_z)
 
+  # One last rotation about z
+  # Average the y value from the 4 floor points
+  dy <- mean(abs(cal_mat_zxy[5:8, 2]))
+  v1 <- c(cal_mat_zxy["Right_Back", 1], 0, 0)
+  v2 <- c(cal_mat_zxy["Right_Back", 1], dy, 0)
+  theta <- vector_angle(v1, v2) * -1 # Rotate counterclockwise
+  rot_mat_z <- xyz_rotation_matrix(theta, "z")
+  cal_mat_zxyz <- rot_mat_z %*% t(cal_mat_zxy) %>% t()
+  M_xyz_zxyz <- rotate_landmark_points(M_xyz_zxy, rot_mat_z)
 
-  cal_mat_zxy <- as.data.frame(cal_mat_zxy)
-  names(cal_mat_zxy) <- c("x", "y", "z")
 
-  # # 3d rotation
-  # c(Rx, Ry, cal_rotate) %<-% rotation_matrices(calibration_coords)
-  #
-  # M <- apply(as.matrix(M_xyz), MARGIN = 1,
-  #            rotate_points, Rx = Rx, Ry = Ry) %>%
-  #   purrr::map_dfr(., as.list)
-  # names(M) <- names(M_xyz)
+  # Convert cal_mat back into a data.frame
+  cal_mat_zxyz <- as.data.frame(cal_mat_zxyz)
+  names(cal_mat_zxyz) <- c("x", "y", "z")
 
   # Reattach time and frame
-  M_xyz_zxy <- M_xyz_zxy %>%
+  M_xyz_zxyz <- M_xyz_zxyz %>%
     mutate(time = M_raw$time,
            frame = M_raw$frame)
 
-  return(list(M = M_xyz_zxy, cal_rotate = cal_mat_zxy))
+  return(list(M = M_xyz_zxyz, cal_rotate = cal_mat_zxyz))
 }
 
 
