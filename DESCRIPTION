@@ -1,7 +1,7 @@
 Package: KinematicAnalysis
 Type: Package
 Title: 3D kinematic data analysis
-Version: 0.1.0
+Version: 0.2.0
 Author: Kevin Middleton
 Maintainer: Kevin Middleton <middletonk@missouri.edu>
 Description: The package is used to aid with 3D kinematic data analysis.
