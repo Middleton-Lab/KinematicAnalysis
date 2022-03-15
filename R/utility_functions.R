@@ -34,3 +34,16 @@ make_xyz_matrix <- function(d) {
 }
 
 
+#' 3d distance
+#'
+#' @param p1 numeric vector: length of 3
+#' @param p2 numeric vector: length of 3
+#'
+#' @return numeric: 3d distance between p1 and p2
+#'
+dist_3d <- function(p1, p2) {
+  d <- sqrt((p1[1] - p2[1]) ^ 2 + (p1[2] - p2[2]) ^ 2 + (p1[3] - p2[3]) ^ 2)
+  return(as.numeric(d))
+}
+
+
