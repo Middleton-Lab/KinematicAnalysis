@@ -10,6 +10,10 @@ process_video(ii, Trial_Info, bef_aft, calibration_coords)
 \item{ii}{integer: row od \code{Trial_Info} to process}
 
 \item{Trial_Info}{data.frame: Structure containing all the trials to process}
+
+\item{bef_aft}{string: Before or after flag}
+
+\item{calibration_coords}{data.frame: Calibration coordinates}
 }
 \value{
 data.frame

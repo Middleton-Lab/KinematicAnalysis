@@ -8,14 +8,13 @@ Description: The package is used to aid with 3D kinematic data analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: tidyverse, plotly, zeallot
+Depends: tidyverse, plotly
 Imports: 
     readxl,
     dplyr,
     purrr,
     readr,
     stringr,
-    magrittr,
     ggplot2,
     purrrlyr,
     tibble,

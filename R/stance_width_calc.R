@@ -19,18 +19,21 @@ stance_width_calc <- function(ii, M) {
   sacrum_vert_displacement <- NA
 
   # Extract row from Trial_Info
-  ti <- Trial_Info %>% dplyr::slice(ii)
+  ti <- Trial_Info |>
+    dplyr::slice(ii)
 
   # Find rows corresponding to footfalls
   # Extract footfall frames in original timing
   # Remove NAs
-  ff <- ti %>% select(starts_with("Footfall")) %>% as.numeric()
+  ff <- ti |>
+    dplyr::select(starts_with("Footfall")) |>
+    as.numeric()
   ff <- ff[!is.na(ff)]
 
   # Extract points for sacrum, hip, foot
-  d <- M %>%
-    select(frame, starts_with("sacrum"), starts_with("hip"),
-           starts_with("foot")) %>%
+  d <- M |>
+    dplyr::select(frame, starts_with("sacrum"), starts_with("hip"),
+           starts_with("foot")) |>
     drop_na()
 
   # Check that the extracted frames are contiguous
@@ -45,19 +48,20 @@ stance_width_calc <- function(ii, M) {
       # Calculate sacrum vertical displacement
       # Filter out points where sacrum is not tracked properly.
       # xxxFIXME Move this out of the loop
-      d_sub <- d %>% filter(sacrum_y <= 30)
+      d_sub <- d |>
+        dplyr::filter(sacrum_y <= 30)
       sacrum_vert_displacement <- max(d_sub$sacrum_y) - min(d_sub$sacrum_y)
 
       # Calculate 3D distance from hip to foot --
       #   minimum distance should happen at mid-stance
-      d <- by_row(.d = d,
+      d <- purrrlyr::by_row(.d = d,
                   ..f = function(x) {
                     dist_3d(c(x$hip_x, x$hip_y, x$hip_z),
                             c(x$foot_x, x$foot_y, x$foot_z))
                   }, .collate = "rows", .to = "d_hip_foot")
 
       # Search a range around footfalls for minimum (+/- 5 frames)
-      mid_stance_frames <- tibble(
+      mid_stance_frames <- tibble::tibble(
         ff = ff,
         ff_low = ff - 5,
         ff_hi = ff + 5
@@ -73,14 +77,15 @@ stance_width_calc <- function(ii, M) {
       min_d_hip_foot <- invoke_rows(
         .d = mid_stance_frames,
         .f = function(ff, ff_low, ff_hi, d) {
-          d_sub <- d %>% filter(frame >= ff_low, frame <= ff_hi)
+          d_sub <- d |>
+            dplyr::filter(frame >= ff_low, frame <= ff_hi)
           (min_d_hip_foot <- min(d_sub$d_hip_foot))
           (min_frame <- d_sub$frame[which.min(d_sub$d_hip_foot)])
           (min_row <- d_sub$row_num[which.min(d_sub$d_hip_foot)])
           return(c(min_d_hip_foot, min_frame, min_row))
         },
         d = d,
-        .collate = "cols") %>%
+        .collate = "cols") |>
         dplyr::rename(min_d_hip_foot = `.out1`,
                       min_frame = `.out2`,
                       min_row = `.out3`)
@@ -94,14 +99,17 @@ stance_width_calc <- function(ii, M) {
       # Calculate x (mediolateral) component of 3D vector: sacrum to foot
       #   then double the width to get stance width.
       # Subset rows matching min_d_hip_foot
-      ms <- d %>% dplyr::slice(min_d_hip_foot$min_row)
+      ms <- d |>
+        dplyr::slice(min_d_hip_foot$min_row)
 
       ms <- by_row(.d = ms,
                    ..f = function(x) {
                      # Vectors of hip and foot points
-                     sacrum <- x %>% dplyr::select(starts_with("sacrum")) %>%
+                     sacrum <- x |>
+                       dplyr::select(starts_with("sacrum")) |>
                        as.numeric()
-                     foot <- x %>% dplyr::select(starts_with("foot")) %>%
+                     foot <- x |>
+                       dplyr::select(starts_with("foot")) |>
                        as.numeric()
 
                      # Move sacrum to origin (subtract sacrum from foot)

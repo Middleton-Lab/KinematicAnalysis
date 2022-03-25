@@ -17,12 +17,11 @@
 #' @keywords package
 
 ## usethis namespace: start
-#' @import tidyverse plotly zeallot
+#' @import tidyverse plotly
 #' @importFrom dplyr select starts_with pull as_tibble bind_cols if_else
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 geom_point
 #' @importFrom ggplot2 ggplot
-#' @importFrom magrittr %<>%
 #' @importFrom purrr map map_dfr
 #' @importFrom purrrlyr by_row
 #' @importFrom purrrlyr invoke_rows
@@ -48,4 +47,7 @@ utils::globalVariables(c("End_frame",
                          "dz",
                          ".out1",
                          ".out2",
-                         ".out3"))
+                         ".out3",
+                         "on_off",
+                         "Trial_Info",
+                         "sacrum_y"))

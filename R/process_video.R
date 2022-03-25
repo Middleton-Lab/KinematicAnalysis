@@ -2,6 +2,8 @@
 #'
 #' @param ii integer: row od \code{Trial_Info} to process
 #' @param Trial_Info data.frame: Structure containing all the trials to process
+#' @param bef_aft string: Before or after flag
+#' @param calibration_coords data.frame: Calibration coordinates
 #'
 #' @return data.frame
 #' \enumerate{
@@ -24,10 +26,13 @@ process_video <- function(ii, Trial_Info, bef_aft, calibration_coords) {
   # time and frame number
   # cal_rotate is the rotated calibration points
   message(ii)
-  c(M, cal_rotate) %<-% process_kine_data(Trial_Info,
-                                          ii,
-                                          calibration_coords,
-                                          bef_aft)
+
+  M_cal_rotate <- process_kine_data(Trial_Info,
+                                    ii,
+                                    calibration_coords,
+                                    bef_aft)
+  M <- M_cal_rotate$M
+  cal_rotate <- M_cal_rotate$cal_rotate
 
   # Calculate variables of interest
   mean_speed <- preferred_speed(M)

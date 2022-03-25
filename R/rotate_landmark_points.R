@@ -17,11 +17,13 @@ rotate_landmark_points <- function(M, rot_mat) {
   purrr::map(
     .x = c("eye", "sacrum", "hip", "knee", "ankle", "foot"),
     .f = function(lm_name, M) {
-      M_sub <- M %>% dplyr::select(starts_with(lm_name))
-      M_sub_rot <- rot_mat %*% t(M_sub) %>% t() %>%
+      M_sub <- M |>
+        dplyr::select(starts_with(lm_name))
+      M_sub_rot <- rot_mat %*% t(M_sub) |>
+        t() |>
         as.data.frame()
       names(M_sub_rot) <- paste(lm_name, c("x", "y", "z"), sep = "_")
       return(M_sub_rot)
-    }, M = M) %>%
+    }, M = M) |>
     do.call("cbind", .)
 }

@@ -12,13 +12,16 @@
 #' @export
 #'
 stride_parameters <- function(ii, M) {
-  ti <- Trial_Info %>% dplyr::slice(ii)
+  ti <- Trial_Info |>
+    dplyr::slice(ii)
 
   # Find rows corresponding to footfalls
   # Extract footfall frames in original timing
   # Remove NAs
   # Subtract Start_time to get row number
-  ff <- ti %>% select(starts_with("Footfall")) %>% as.numeric()
+  ff <- ti |>
+    select(starts_with("Footfall")) |>
+    as.numeric()
   ff <- ff[!is.na(ff)]
   ff <- ff - ti$Start_frame
 
@@ -35,7 +38,7 @@ stride_parameters <- function(ii, M) {
     ###
     # Stride length
     # xyz coordinates at footfalls
-    ff_xyz <- M %>% dplyr::slice(ff) %>%
+    ff_xyz <- M |> dplyr::slice(ff) |>
       dplyr::select(starts_with("foot"))
 
     # Calculate distance between sequential foot points

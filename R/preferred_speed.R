@@ -10,7 +10,7 @@ preferred_speed <- function(M) {
   d_time <- max(diff(M$time))
 
   # Extract sacrum points
-  sacrum <- M %>% select(starts_with("sacrum")) %>%
+  sacrum <- M %>% select(starts_with("sacrum")) |>
     drop_na()
 
   # Only calculate if there are 2 sacrum points

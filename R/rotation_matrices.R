@@ -10,19 +10,19 @@
 #'
 rotation_matrices <- function(cal_coords) {
   # Find origin
-  origin <- cal_coords %>%
-    dplyr::select(starts_with("Intersection")) %>%
+  origin <- cal_coords |>
+    dplyr::select(starts_with("Intersection")) |>
     as.numeric()
 
   # Move points to origin
   cal_coords <- translate_points(cal_coords, origin)
 
   # Get vertical line and x-axis vectors
-  v_zero <- cal_coords %>%
-    dplyr::select(starts_with("Top_Line")) %>%
+  v_zero <- cal_coords |>
+    dplyr::select(starts_with("Top_Line")) |>
     as.numeric()
-  v_axis <- cal_coords %>%
-    dplyr::select(starts_with("Right_Line")) %>%
+  v_axis <- cal_coords |>
+    dplyr::select(starts_with("Right_Line")) |>
     as.numeric()
 
   # Rotate around x-axis to line up z-axis with origin
